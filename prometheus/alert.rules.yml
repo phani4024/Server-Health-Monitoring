@@ -1,0 +1,43 @@
+groups:
+- name: system-alerts
+  rules:
+  # CPU usage alert
+  - alert: HighCPUUsage
+    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 55
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU Usage"
+      description: "CPU usage is above 85% for more than 2 minutes"
+  
+  # Memory usage alert      
+  - alert: HighMemoryUsage
+    expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.5
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Memory Usage"
+      description: "Memory usage above 90% for more than 2 minutes"
+
+  # Disk usage alert
+  - alert: DiskUsageHigh
+    expr: (node_filesystem_size_bytes{fstype!="tmpfs",fstype!="overlay"} - node_filesystem_free_bytes{fstype!="tmpfs",fstype!="overlay"}) / node_filesystem_size_bytes{fstype!="tmpfs",fstype!="overlay"} > 0.5
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Disk Usage"
+      description: "Disk usage is over 90% for 5 minutes"
+
+  # Network receive alert
+  - alert: HighNetworkReceive
+    expr: rate(node_network_receive_bytes_total[1m]) > 50000
+    for: 1m
+    labels:
+      severity: info
+    annotations:
+      summary: "High Network Inbound"
+      description: "Network receive traffic >10MB/s"
+

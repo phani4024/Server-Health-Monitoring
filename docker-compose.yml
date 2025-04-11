@@ -1,0 +1,35 @@
+# Docker Compose setup for full monitoring stack
+
+services:
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      # Map Prometheus config and alert rules
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090" # Prometheus UI
+
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      # Map Alertmanager config
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093" # Alertmanager UI
+
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100" # Exposes host metrics (CPU, memory, disk, etc.)
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000" # Grafana UI
+    volumes:
+      # Map Grafana datasource config
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+

@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 5m # Time to wait before marking alert as resolved
+
+route:
+  receiver: slack-notifications
+  group_wait: 10s     # Wait before sending first alert in a group
+  group_interval: 5m  # Wait time between sending grouped alerts
+  repeat_interval: 1h # Repeat alert if still firing
+
+receivers:
+  - name: slack-notifications
+    slack_configs:
+      - api_url: "https://hooks.slack.com/services/......"  # Replace with your actual hook
+        channel: "#workspace-name" # Replace with your actual workspace
+        send_resolved: true        # Notify when issue is resolved
