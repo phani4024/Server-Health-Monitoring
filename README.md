@@ -27,14 +27,12 @@ From your project folder, run the following command to launch the entire monitor
 This will start up Prometheus, Grafana, Node Exporter, and Alertmanager in the background.
 
 **Access the Dashboards:**
-
 - Node Exporter: http://localhost:9100
 - Prometheus UI: http://localhost:9090
 - Grafana UI: http://localhost:3000 (default login: username: admin, password: admin)
 - Alertmanager UI: http://localhost:9093
   
 **Metrics we will be Monitoring**
-
 Prometheus will collects several key metrics from Node Exporter, including:
 - CPU Usage: How much of the CPU your system is using.
 - Memory Usage: How much memory is being used on the system.
@@ -49,9 +47,7 @@ If any of these things go wrong, the system will send an alert:
 - High Network Traffic: If the network receive rate goes over 100 KB/s.
 All alerts will be sent to your specified Slack channel (as configured in alertmanager/alertmanager.yml).
 
-
-## Load Simulation Script
-
+**Load Simulation Script**
 To load and trigger the alerts, use the `dummy_load.sh` script. This will stress the CPU, memory, disk, and network:
 
 **dummy_load.sh**
