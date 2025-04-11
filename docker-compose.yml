@@ -1,5 +1,6 @@
 # Docker Compose setup for full monitoring stack
 
+version: "3"
 services:
   prometheus:
     image: prom/prometheus

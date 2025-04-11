@@ -10,6 +10,6 @@ route:
 receivers:
   - name: slack-notifications
     slack_configs:
-      - api_url: "https://hooks.slack.com/services/......"  # Replace with your actual hook
-        channel: "#workspace-name" # Replace with your actual workspace
+      - api_url: "https://hooks.slack.com/services/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"  # Replace with your actual hook
+        channel: "#all-terraform-project" # Replace with your actual workspace
         send_resolved: true        # Notify when issue is resolved
